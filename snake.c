@@ -14,11 +14,10 @@
 #define SCREEN_H ((H) * (SIZE))
 
 
-#define DELAY 80 // 80 microseconds
+#define DELAY 80 // 80 milliseconds
 #define START_LEN 3
 
 #define MAX_SNAKE_LEN 200
-
 
 
 #define TRUE 1
@@ -33,8 +32,8 @@ SDL_Surface *white = NULL,
             *green = NULL;
 
 
-struct pos_t {
-
+struct pos_t 
+{
     int x, y;
 };
 
@@ -51,10 +50,10 @@ int len = START_LEN,
 
 
 
-
-int setup() {
-
-    if (SDL_Init(SDL_INIT_EVERYTHING)) {
+int setup() 
+{
+    if (SDL_Init(SDL_INIT_EVERYTHING)) 
+    {
 	printf("Error initializing SDL: %s\n", SDL_GetError());
 	return (-1);
     }
@@ -66,7 +65,8 @@ int setup() {
 			      SCREEN_W,
 			      SCREEN_H, SDL_WINDOW_SHOWN);
 
-    if (window == NULL) {
+    if (window == NULL) 
+    {
 	printf("Error initializing window: %s\n", SDL_GetError());
 	return (-1);
     }
@@ -74,14 +74,15 @@ int setup() {
 
     screen = SDL_GetWindowSurface(window);
 
-    if (screen == NULL) {
+    if (screen == NULL) 
+    {
 	printf("Error initializing window_surface: %s\n", SDL_GetError());
 	return (-1);
     }
 
 
     white = SDL_LoadBMP("./images/white.bmp");
-    red = SDL_LoadBMP("./images/red.bmp");
+    red   = SDL_LoadBMP("./images/red.bmp");
     green = SDL_LoadBMP("./images/green.bmp");
 
     if (white == NULL || red == NULL || green == NULL)
@@ -93,12 +94,10 @@ int setup() {
     srand(time(NULL));
 
 
-
     for (int i = 0; i < MAX_SNAKE_LEN; i++) {
 	s[i].x = 0;
 	s[i].y = 0;
     }
-
 
     f.x = W / 2;
     f.y = 0;
@@ -106,10 +105,11 @@ int setup() {
     return (0);
 }
 
-void logic() {
-
+void logic() 
+{
     // Move the snake
-    for (int i = len; i > 0; i--) {
+    for (int i = len; i > 0; i--) 
+    {
 	s[i].x = s[i-1].x;
 	s[i].y = s[i-1].y;
     }
@@ -163,7 +163,6 @@ void logic() {
 
         } while (fruit_overlapping == TRUE);
     }
-
 }
 
 void draw()
@@ -182,10 +181,10 @@ void draw()
 
 
     // Draw the background
-    for (int i = 0; i < SCREEN_H / SIZE; i++) { 
-
-	for (int j = 0; j < SCREEN_W / SIZE; j++) {
-
+    for (int i = 0; i < SCREEN_H / SIZE; i++) 
+    { 
+	for (int j = 0; j < SCREEN_W / SIZE; j++) 
+	{
 	    SDL_BlitSurface(white, NULL, screen, &pos);
 	    pos.x += SIZE;
 	}
@@ -196,7 +195,8 @@ void draw()
     }
 
     // Draw the snake
-    for (int i = 0; i < len; i++) {
+    for (int i = 0; i < len; i++) 
+    {
 	pos.x = s[i].x * SIZE;
 	pos.y = s[i].y * SIZE;
 
@@ -228,10 +228,10 @@ void free_stuff()
 }
 
 
-int main() {
-
-    if (setup()) {
-
+int main() 
+{
+    if (setup()) 
+    {
 	printf("setup() failed. Exiting...\n");
 	goto end;
     }
@@ -280,5 +280,4 @@ end:
     free_stuff();
     
     return (0);
-    
 }
