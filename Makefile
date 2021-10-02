@@ -1,2 +1,2 @@
 snake_game: snake.c
-	gcc snake.c -o snake `sdl-config --libs --cflags`
+	gcc snake.c -o snake `sdl2-config --libs --cflags`
